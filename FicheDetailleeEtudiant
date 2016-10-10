@@ -1,0 +1,80 @@
+Fiche détaillées: 
+UC: Passer QCM
+Auteur:...
+Description: permet à un étudiant de passer un QCM
+Acteur: Etudiant
+Précondition: -Les UEs, chapitres et questions sont déja prédéfinis.
+	      -Le champs de saisie du nombre de questions n'accepte que des chiffres
+	      -Le score au début du QCM = 0
+Scénario nominal:
+1) L'etudiant choisit "Démarrer QCM"
+2) Le système affiche la liste des UEs
+3) L'étudiant choisit l'UE concerné
+4) Le système affiche la liste des chapitres du UE choisi
+5) L'étudiant selectionne le ou les chapitres à réviser
+6) Le système affiche un champs pour saisir le nombre de question souhaité
+7) L'étudiant saisit un nombre
+8) Le système affiche une nouvelle question en piochant aléatoirement des questions parmi l'ensemble des questions disponible et qui ont une relation avec les chapitres sélectionnés par l'étudiant
+9) Le système affiche la question et les propostions de réponse
+10) L'étudiant répond au questionnaire en cochant la ou les propositions correctes
+11) L'étudiant valide sa réponse
+12) Le systéme vérifie la réponse de l'étudiant et affiche le résultat.
+13) Le système calcule le score obtenu et l'affiche
+14) L'étudiant choisit de términer
+
+Postcondition: une question donné apparait au plus une fois dans le QCM
+
+E1: Annulation
+L'étudiant peut annuler le passage du QCM en SN3 ou SN5 ou SN7 ou SN10 ou SN11. Fin d'iteraction
+A1: Modification du choix 
+-En SN5 si l'étudiant choisit de retourner en arrière pour choisir un autre UE : 
+	A.1.1: Retour en SN2
+-En SN7 si l'étudaint choisit de retourner en arriére pour modifier les chapitres
+	A.1.2: REtour en SN4
+A2: Nombre de questions saisi erronné:
+en SN7 si l'étudiant saist un nombre inférieur a 1 ou supérieur à 20:
+	A.2.1: Le système affiche un message d'erreur.
+	A.2.2: Retour en SN6
+A3: Plusieurs questions
+En SN12 si l'étudiant a choisit un nombre de question supérieur à 1: retour en SN8
+A4: corrigé
+En SN12 si l'étudiant a bien répondu sur la quéstion (Les propositions valides sont cochées et toutes les propositions invalides sont décochées)
+	A.4.1: Le système ajoute 1 point au score et félicite l'étudiant
+Sinon:  A.4.2: Le système affiche le corrigé de toute proposition malsélectionnée
+A5: Autre QCM
+En SN14 si l'étudiant veut passer un autre QCM : retour en SN2
+-------------------------------------------------------------------------------------------
+UC: acceder au support
+Auteur: ---
+Description: permet à un étudiant d'acceder au supports
+Précondition: Les UEs et les chapitres sont déja prédéfinis
+SN:
+1) L'étudiant choisit "acceder au support"
+2) Le système affiche l'ensemble des UEs
+3) L'étudiant choisit l'UE concerné
+4) Le système affiche les chapitres du UE choisi avec les différents support pédagogiques (page de cours, vidéos et documents à lire)
+PostCondition: 0
+E1: AnnulatioN
+En SN3 l'étudiant peut annuler l'accés au support. Fin d'intéractio,
+A1: autre supports:
+En SN4 si l'etudiant choisit d'acceder à un autre support: retour en SN2
+--------------------------------------------------------------------------------------------
+UC: commenter un contenu
+Auteur :...
+Description: permet de laiseer un commentaire sur un contenu d'une page 
+Acteur: un utilisateur quelconque 
+Précondition : 0
+SN:
+1) L'utilisateur click sur "commenter"
+2) Le système affiche une barrière du type "captcha"
+3) L'utilisatuer saisi les chiffres ou/et les lettres affiché pour passer la barrière
+4) Le système vérifie la saisie de l'étudiant
+5) Le système affiche un champs de texte permettant de saisir un commentaire
+6) L'utilisateur saisit son commentaire et l'enregistre
+Postcondition: le système enregistre le commentaire de l'étudaint sur le contenu
+E1: Annulation
+En SN2 et SN5 l'utilisateur peut choisir d'annumer. Fin d'intéraction
+A1: captcha eronnée
+En SN4 si l'utilisateur saisit un texte différent du texte demandé à l'image du captcha : retour en SN2
+E2: 3 tentatives
+En SN4 si l'utilisateur saisit un captcha erronnée 3 fois succéssivement: le système affiche un message d'erreur. Fin d'Intéraction 
